@@ -841,7 +841,7 @@ end
 -- XPerl_Target_SetComboBar
 function XPerl_Target_SetComboBar(self)
 	if (tconf.combo.enable) then
-		local comboPoints = IsClassic and (GetComboPoints("player", "target") or GetComboPoints("player", "focus")) or UnitPower(UnitHasVehicleUI("player") and "vehicle" or "player", Enum.PowerType.ComboPoints)
+		local comboPoints = IsClassic and GetComboPoints("player", "target") or UnitPower(UnitHasVehicleUI("player") and "vehicle" or "player", Enum.PowerType.ComboPoints)
 		local maxComboPoints = UnitPowerMax("player", Enum.PowerType.ComboPoints)
 		self.nameFrame.cpMeter:SetMinMaxValues(0, IsClassic and 5 or maxComboPoints)
 		self.nameFrame.cpMeter:SetValue(comboPoints)
@@ -1523,7 +1523,7 @@ function XPerl_Target_Events:UNIT_MAXPOWER(unit)
 	if unit == "target" then
 		XPerl_Target_SetMana(self)
 	else
-		XPerl_Target_SetComboBar(self)
+		XPerl_Target_SetComboBar(XPerl_Target)
 	end
 end
 
@@ -2010,7 +2010,7 @@ function XPerl_Target_Set_FocusCPFrame(self)
 		FocusComboFrame:ClearAllPoints()
 		for i = 1, 5 do
 			local combo = _G["FComboPoint"..i]
-			if i < 9 then
+			if i < 6 then
 				combo:ClearAllPoints()
 
 				if i < 6 then
